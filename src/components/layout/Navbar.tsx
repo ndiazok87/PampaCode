@@ -10,6 +10,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
+import logo from "@/assets/pampacode-logo.png";
 
 interface NavbarProps {
     onNavigate?: (section: string) => void;
@@ -72,10 +73,16 @@ export function Navbar({ onNavigate, onContactClick }: NavbarProps) {
                     className="flex items-center gap-2 cursor-pointer"
                     onClick={() => handleNavClick("inicio")}
                 >
-                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
-                        <span className="font-heading font-bold text-sm">&lt;&gt;</span>
-                    </div>
-                    <span className="font-heading font-bold text-lg tracking-tight">PampaCode</span>
+                    <img
+                        src={logo}
+                        alt="PampaCode"
+                        className={cn(
+                            "h-10 w-auto object-contain transition-all duration-300",
+                            isScrolled
+                                ? "brightness-0 dark:brightness-0 dark:invert" // Light mode: Black. Dark mode: White.
+                                : "" // Hero mode (Transparent on Blue): Keep White (Native).
+                        )}
+                    />
                 </div>
 
                 {/* Desktop Navigation */}
@@ -90,15 +97,9 @@ export function Navbar({ onNavigate, onContactClick }: NavbarProps) {
                             }}
                             className={cn(
                                 "text-sm font-medium transition-all duration-200 relative py-1 hover:scale-105",
-                                // User requested: Grey in Light Mode, White in Dark Mode
                                 isScrolled
                                     ? "text-slate-600 dark:text-white"
-                                    : "text-white/90 hover:text-white", // When transparent on Hero (Blue), text should be white usually, but following strict instruction for 'grey' might break readability. 
-                                // However, user said "navbar pages text color grey for light mode".
-                                // If transparent, it's technically over the hero. 
-                                // I'll stick to 'text-slate-600' when scrolled (white background), and keep it white when transparent (over blue hero) to ensure it's readable, 
-                                // unless user explicitly wants unreadable text. I will assume they mean "When the navbar has a background".
-
+                                    : "text-white/90 hover:text-white",
                                 activeSection === item.href.substring(1)
                                     ? "text-primary dark:text-white font-bold"
                                     : "hover:text-primary dark:hover:text-primary-light"
@@ -141,9 +142,11 @@ export function Navbar({ onNavigate, onContactClick }: NavbarProps) {
                         <SheetContent side="right" className="w-[80vw] sm:w-[350px] p-0 border-l border-border/40">
                             <SheetHeader className="p-6 border-b border-border/40 text-left">
                                 <SheetTitle className="flex items-center gap-2">
-                                    <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
-                                        <span className="font-heading font-bold text-sm">&lt;&gt;</span>
-                                    </div>
+                                    <img
+                                        src={logo}
+                                        alt="PampaCode"
+                                        className="h-8 w-auto object-contain brightness-0 dark:invert"
+                                    />
                                     <span className="font-heading font-bold">PampaCode</span>
                                 </SheetTitle>
                             </SheetHeader>
